@@ -11,7 +11,7 @@ module.exports = {
         stockSage: "#FF3600",
       },
       fontFamily: {
-        quicksand: ["Quicksand", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
       borderWidth: {
         1: "1px",

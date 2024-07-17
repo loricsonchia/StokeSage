@@ -28,36 +28,31 @@ const Login = () => {
   //   }
   // };
 
-  const tickers = [
-    { symbol: "AAPL", price: "US $170.53", change: "+1.37%" },
-    { symbol: "S&P 500", price: "US $5001.10", change: "+2.51%" },
-    { symbol: "TSLA", price: "US $175.23", change: "-0.15%" },
-    { symbol: "JPM", price: "US $192.94", change: "-0.28%" },
-    { symbol: "NVDA", price: "US $345.67", change: "-3.80%" },
-  ];
+  // const tickers = [
+  //   { symbol: "AAPL", price: "US $170.53", change: "+1.37%" },
+  //   { symbol: "S&P 500", price: "US $5001.10", change: "+2.51%" },
+  //   { symbol: "TSLA", price: "US $175.23", change: "-0.15%" },
+  //   { symbol: "JPM", price: "US $192.94", change: "-0.28%" },
+  //   { symbol: "NVDA", price: "US $345.67", change: "-3.80%" },
+  // ];
 
   return (
     <section className="bg-background">
-      <header className="flex justify-between pb-10 mb-20">
-        <div className="text-7xl flex-shrink-0 pl-10 pt-10">
+      <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
+        <div className="text-8xl flex-shrink-0 pl-10 pt-10 pr-96">
           <h1 className="text-stockSage">StockSage</h1>
         </div>
-
-        <div
-          className={`h-screen grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 grid-rows-8 md:grid-rows-7 xl:grid-rows-5 auto-rows-fr gap-6 p-10 font-quicksand ${
-            darkMode ? "bg-gray-900 text-gray-300" : "bg-neutral-100"
-          }`}
-        >
-          <div class="col-span-1 md:col-span-2 xl:col-span-3 row-span-1 flex justify-start items-center">
-            <Marquee className="text-white">Ticker</Marquee>
+        <div className="max-h-fit auto-rows-fr gap-6 font-quicksand">
+          <div className="col-span-3 border-white border-b-1 border-l-1 rounded-none">
+            <Marquee/>
           </div>
-          <div className="row-span-2 xl:row-span-3">
+          <div className="col-span-3 border-white border-l-1 rounded-none">
             <News> News </News>
           </div>
         </div>
       </header>
 
-      <div class="flex flex-col items-center justify-center px-6 pt-2 pb-1 mx-auto md:h-screen lg:py-0">
+      <div class="flex flex-col items-center justify-center pt-16 pb-10 mx-auto md:max-h-screen lg:py-0">
         <a
           href="#"
           class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -140,12 +135,11 @@ const Login = () => {
         </div>
       </div>
 
-      <footer className="flex justify-between items-center pb-4">
-        <div className="flex-shrink-0 pl-10">
+      <footer className="flex justify-between items-center md:max-h-max">
+        <div className="pt-3 pb- 10 pl-10">
           <h3 className="text-white">where finance meets AI</h3>
         </div>
-
-        <div className="flex-shrink-0 pr-10">
+        <div className="pt-3 pb-10 pr-10">
           <h3 className=" text-white">2024</h3>
         </div>
       </footer>
