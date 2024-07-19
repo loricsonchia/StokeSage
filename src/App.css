@@ -1,4 +1,4 @@
-.marquee {
+/* .marquee {
   overflow: hidden;
   white-space: nowrap;
 }
@@ -11,13 +11,16 @@
 .ticker {
   display: inline-block;
   margin-right: 50px;
+} */
+
+.ticker-container {
+  display: flex;
 }
 
-@keyframes marquee {
-  0% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
 }

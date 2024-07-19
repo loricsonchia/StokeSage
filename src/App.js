@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Login from "./pages/Login1.js";
+import Manipulation from "./pages/Manipulation.js";
 import Signup from "./pages/Signup.js";
 import Home from "./pages/Home.js";
 import ThemeContext from "./context/ThemeContext";
@@ -16,8 +17,9 @@ function App() {
       <StockContext.Provider value={{ stockSymbol, setStockSymbol }}>
         {/* <Dashboard /> */}
         {/* <Login /> */}
-        <Signup />
+        {/* <Signup /> */}
         {/* <Home /> */}
+        <Manipulation />
       </StockContext.Provider>
     </ThemeContext.Provider>
   );
