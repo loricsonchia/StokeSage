@@ -5,6 +5,7 @@ import Login from "./pages/Login1.js";
 import Manipulation from "./pages/Manipulation.js";
 import Signup from "./pages/Signup.js";
 import Home from "./pages/Home.js";
+import StockNews from "./pages/StockNews.js";
 import ThemeContext from "./context/ThemeContext";
 import StockContext from "./context/StockContext";
 
@@ -16,10 +17,11 @@ function App() {
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
       <StockContext.Provider value={{ stockSymbol, setStockSymbol }}>
         {/* <Dashboard /> */}
-        {/* <Login /> */}
+        <Login />
         {/* <Signup /> */}
         {/* <Home /> */}
-        <Manipulation />
+        {/* <Manipulation /> */}
+        {/* <StockNews /> */}
       </StockContext.Provider>
     </ThemeContext.Provider>
   );
