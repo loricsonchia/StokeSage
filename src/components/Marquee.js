@@ -1,6 +1,14 @@
 import React from "react";
 
 const Marquee = ({ tickers }) => {
+  // const tickers = [
+  //   { symbol: "AAPL", price: "US $170.53", change: "+1.37%" },
+  //   { symbol: "S&P 500", price: "US $5001.10", change: "+2.51%" },
+  //   { symbol: "TSLA", price: "US $175.23", change: "-0.15%" },
+  //   { symbol: "JPM", price: "US $192.94", change: "-0.28%" },
+  //   { symbol: "NVDA", price: "US $345.67", change: "-3.80%" },
+  // ];
+
   return (
     // <div className="marquee">
     //   <div className="marquee-content">

@@ -1,38 +1,31 @@
-import React, { useState, useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import React, { useState } from "react";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import axios from "axios";
 import News from "./News";
 import Marquee from "../components/Marquee";
 
 const Login = () => {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  // const { login } = useContext(AuthContext);
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   setError("");
-  //   try {
-  //     const res = await axios.post("http://localhost:3000/api/auth/login", {
-  //       username,
-  //       password,
-  //     });
-  //     const token = res.data.token;
-  //     login(token);
-  //   } catch (error) {
-  //     setError("Invalid username or password");
-  //   }
-  // };
-
-  // const tickers = [
-  //   { symbol: "AAPL", price: "US $170.53", change: "+1.37%" },
-  //   { symbol: "S&P 500", price: "US $5001.10", change: "+2.51%" },
-  //   { symbol: "TSLA", price: "US $175.23", change: "-0.15%" },
-  //   { symbol: "JPM", price: "US $192.94", change: "-0.28%" },
-  //   { symbol: "NVDA", price: "US $345.67", change: "-3.80%" },
-  // ];
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8000/login", {
+        email,
+        password,
+      });
+      alert("Login successful:", response.data);
+      console.log("Login successful:", response.data);
+    } catch (error) {
+      console.error(
+        "Error logging in:",
+        error.response ? error.response.data : error.message
+      );
+    }
+  };
 
   return (
     <section className="bg-background">
@@ -42,7 +35,7 @@ const Login = () => {
         </div>
         <div className="max-h-fit auto-rows-fr gap-6 font-quicksand overflow-hidden">
           <div className="col-span-3 border-white border-b-1 border-l-1 rounded-none">
-            <Marquee/>
+            <Marquee />
           </div>
           <div className="col-span-3 border-white border-l-1 rounded-none">
             <News> News </News>
@@ -50,21 +43,17 @@ const Login = () => {
         </div>
       </header>
 
-      <div class="flex flex-col items-center justify-center pt-16 pb-10 mx-auto md:max-h-screen lg:py-0">
-        <a
-          href="#"
-          class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-        ></a>
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-          <div class="p-2 space-y-1 md:space-y-2 sm:p-8">
-            <h1 class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+      <div className="flex flex-col items-center justify-center pt-16 pb-10 mx-auto md:max-h-screen lg:py-0 mt-10">
+        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0  dark:bg-gray-800 dark:border-gray-700">
+          <div className="p-2 space-y-1 md:space-y-2 sm:p-8">
+            <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign In
             </h1>
-            <form class="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
               <div>
                 <label
-                  for="email"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Email
                 </label>
@@ -72,15 +61,17 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="useremail"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="alexjones@gmail.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
                 <label
-                  for="password"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Password
                 </label>
@@ -88,25 +79,27 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="userpassword"
-                  placeholder=""
-                  class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="*"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div class="flex items-center justify-between">
-                <div class="flex items-start">
-                  <div class="flex items-center h-5">
+              <div className="flex items-center justify-between">
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
                     <input
                       id="remember"
                       aria-describedby="remember"
                       type="checkbox"
-                      class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
                     />
                   </div>
-                  <div class="ml-3 text-sm">
+                  <div className="ml-3 text-sm">
                     <label
-                      for="remember"
-                      class="text-gray-500 dark:text-gray-300"
+                      htmlFor="remember"
+                      className="text-gray-500 dark:text-gray-300"
                     >
                       Remember me
                     </label>
@@ -115,15 +108,16 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800  transition duration-700 hover:scale-125"
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 transition duration-700 hover:scale-125"
               >
                 Sign in
               </button>
-              <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+              {error && <p className="text-sm text-red-500">{error}</p>}
+              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{" "}
                 <a
                   href="#"
-                  class="font-medium text-primary-600 hover:underline dark:text-primary-500 dark:text-purple-400"
+                  className="font-medium text-primary-600 hover:underline dark:text-primary-500 dark:text-purple-400"
                 >
                   Sign up
                 </a>
@@ -132,6 +126,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+
       <footer className="flex justify-between items-center ">
         <div className="pt-10 mb-8 pl-10">
           <h3 className="text-white">where finance meets AI</h3>
