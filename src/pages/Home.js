@@ -1,40 +1,69 @@
 import React, { useContext, useState } from "react";
+import News from "../components/News";
+import Marquee from "../components/Marquee";
+import Card from "../components/Card";
+import image1 from "../news.png";
+import image2 from "../prices.webp";
+import image3 from "../chart.jpg";
+import Navbar from "../components/Navbar";
 
 const Home = () => {
   return (
     <section className="bg-background">
-      <header className="flex items-center pt-5 pl-10">
-        <div className="text-7xl">
-          <h1 className="text-stockSage">StockSage</h1>
+      <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
+        <div className="flex-col">
+          <h1 className="text-stockSage text-8xl pl-10 pt-16 pr-96 flex-col">
+            StockSage
+          </h1>
+          <Navbar />
         </div>
-        <div className="flex">
-          <nav className="">
-            <h2>MarqueeTag</h2>
-          </nav>
-          <nav className="">
-            <h2>News</h2>
-          </nav>
+
+        <div className="max-h-fit auto-rows-fr gap-6 font-quicksand overflow-hidden">
+          <div className="col-span-3 border-white border-b-1 border-l-1 rounded-none">
+            <Marquee />
+          </div>
+          <div className="col-span-3 border-white border-l-1 rounded-none">
+            <News> News </News>
+          </div>
         </div>
       </header>
 
-      <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 z-10 relative">
-        <h1 class="pt-28 mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          A paradigm shift to future
-        </h1>
-        <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          stock trading
-        </h1>
-        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-200">
-          Manifest · Analyze · Trade
-        </p>
-      </div>
-      <div class="bg-gradient-to-b dark:from-purple-950 w-full h-full top-36 left-0 z-0 absolute"></div>
+      <div className="flex pt-10">
+        <div className="-mr-10">
+          <div
+            className="rounded-xl border-1 border-white-800 ml-10 mr-20 mb-10 opacity-50"
+            style={{ backgroundImage: `url(${image1})` }}
+          >
+            <h2 className="text-white text-5xl justify-center place-content-center pl-10 pt-10 pb-44 pr-80">
+              Market News
+            </h2>
+          </div>
 
-      <footer className="flex justify-between items-center pb-4">
-        <div className="flex-shrink-0 pl-10">
+          <div
+            className="rounded-xl border-1 border-white-800 ml-10 mr-20 opacity-50"
+            style={{ backgroundImage: `url(${image2})` }}
+          >
+            <h3 className="text-white text-5xl place-content-center pl-10 pt-10 pb-44 pr-80">
+              Stock Prices
+            </h3>
+          </div>
+        </div>
+
+        <div
+          className="rounded-xl border-1 border-white-800 pb-72 bg-cover bg-center opacity-50"
+          style={{ backgroundImage: `url(${image3})` }}
+        >
+          <h1 className="text-white text-8xl place-content-center p-10 mr-80">
+            AI Model
+          </h1>
+        </div>
+      </div>
+
+      <footer className="flex justify-between items-center">
+        <div className="pt-10 mb-8 pl-10">
           <h3 className="text-white">where finance meets AI</h3>
         </div>
-        <div className="flex-shrink-0 pr-10">
+        <div className="pt-10 mb-8 pr-10">
           <h3 className=" text-white">2024</h3>
         </div>
       </footer>

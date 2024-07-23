@@ -38,4 +38,12 @@ async def login(user: UserLogin):
             raise HTTPException(status_code=404, detail="User not found in Firestore")
     
     except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail="Fail from login routes")
+    
+# app.post("/future")
+# async def future():
+#     try:
+#         #load model
+
+#     except Exception as e:
+#         raise HTTPException(status_code=400, detail="Fail from future routes")

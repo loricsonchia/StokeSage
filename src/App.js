@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Login from "./pages/Login1.js";
@@ -14,16 +15,22 @@ function App() {
   const [stockSymbol, setStockSymbol] = useState("AAPL");
 
   return (
-    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-      <StockContext.Provider value={{ stockSymbol, setStockSymbol }}>
-        {/* <Dashboard /> */}
-        <Login />
-        {/* <Signup /> */}
-        {/* <Home /> */}
-        {/* <Manipulation /> */}
-        {/* <StockNews /> */}
-      </StockContext.Provider>
-    </ThemeContext.Provider>
+    <StockContext.Provider value={{ stockSymbol, setStockSymbol }}>
+      {/* <Dashboard /> */}
+      {/* <Login /> */}
+      {/* <Signup /> */}
+      {/* <Home /> */}
+      <Manipulation />
+      {/* <StockNews /> */}
+    </StockContext.Provider>
+    //   <Router>
+    //     <Routes>
+    //       <Route path="/" element={<Home />} />
+    //       <Route path="/signup" element={<Signup />} />
+    //       <Route path="/login" element={<Login />} />
+    //       <Route path="/manipulation" element={<Manipulation />} />
+    //     </Routes>
+    // </Router>
   );
 }
 

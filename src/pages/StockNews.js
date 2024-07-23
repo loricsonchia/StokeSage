@@ -1,14 +1,19 @@
 import React, { useState, useContext } from "react";
-import News from "./News";
+import News from "../components/News";
 import Marquee from "../components/Marquee";
+import Navbar from "../components/Navbar";
 
 const StockNews = () => {
   return (
     <section className="bg-background">
       <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
-        <div className="text-8xl flex-shrink-0 pl-10 pt-10 pr-96">
-          <h1 className="text-stockSage">StockSage</h1>
+        <div className="flex-col">
+          <h1 className="text-stockSage text-8xl pl-10 pt-16 pr-96 flex-col">
+            StockSage
+          </h1>
+          <Navbar />
         </div>
+
         <div className="max-h-fit auto-rows-fr gap-6 font-quicksand overflow-hidden">
           <div className="col-span-3 border-white border-b-1 border-l-1 rounded-none">
             <Marquee />

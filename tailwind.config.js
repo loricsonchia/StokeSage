@@ -5,12 +5,12 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        scroll: 'scroll 10s linear infinite',
+        scroll: "scroll 10s linear infinite",
       },
       keyframes: {
         scroll: {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
       colors: {
@@ -31,9 +31,14 @@ module.exports = {
       },
       padding: {
         152: "38rem",
+        180: "45rem",
       },
       margin: {
+        112: "28rem",
+        120: "30rem",
         140: "35rem",
+        160: "40rem",
+        240: "60rem",
       },
     },
   },
