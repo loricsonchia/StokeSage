@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import News from "../components/News";
 import Marquee from "../components/Marquee";
-import Chart from "../components/Chart";
-import StockContext from "../context/StockContext";
-import { fetchStockDetails, fetchQuote } from "../services/stock-api";
 import Navbar from "../components/Navbar";
 
 const Manipulation = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("Ticker");
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    setDropdownOpen(false);
   };
 
   return (
@@ -35,24 +38,24 @@ const Manipulation = () => {
 
       <div className="flex">
         <div className="flex-col rounded-md border-1 border-white-800 ml-10 mt-10">
-          <h1 className="text-white text-5xl mr-240">Chart</h1>
+          <h1 className="text-white text-5xl mt-10 ml-10 mr-224">Chart</h1>
         </div>
 
-        <div className="flex-col">
-          <div className="rounded-md border-1 border-white-800 mt-10 mb-5 ml-5 pb-40">
-            <h1 className="text-white text-2xl mx-28 mt-3">Parameters</h1>
+        <div className="flex-col relative">
+          <div className="rounded-md border-1 border-white-800 mt-10 mb-5 ml-5">
+            <h1 className="text-white text-2xl mx-28 mt-3">Parameter</h1>
 
-            <div className="ml-14 mt-10">
+            <div className="ml-14 mt-10 pb-20">
               <button
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"
-                className="text-white font-medium rounded-lg text-lg px-20 py-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white font-medium rounded-lg text-lg w-36 py-3 ml-8 pl-5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
                 onClick={toggleDropdown}
               >
-                Ticker
+                <span className="flex-1">{selectedItem}</span>
                 <svg
-                  className="w-2.5 h-2.5 ms-3"
+                  className="w-3 h-3 mr-8"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -71,48 +74,56 @@ const Manipulation = () => {
               {dropdownOpen && (
                 <div
                   id="dropdown"
-                  className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 absolute mt-2 left-1/2 transform -translate-x-1/2"
+                  className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-36 ml-1 dark:bg-gray-700 absolute mt-2 left-1/2 transform -translate-x-1/2"
                 >
                   <ul
                     className="py-2 text-sm text-gray-700 dark:text-gray-200"
                     aria-labelledby="dropdownDefaultButton"
                   >
                     <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      <button
+                        onClick={() => handleSelectItem("AAPL")}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         AAPL
-                      </a>
+                      </button>
                     </li>
                     <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      <button
+                        onClick={() => handleSelectItem("GME")}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         GME
-                      </a>
+                      </button>
                     </li>
                     <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      <button
+                        onClick={() => handleSelectItem("NVDA")}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         NVDA
-                      </a>
+                      </button>
                     </li>
                     <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      <button
+                        onClick={() => handleSelectItem("TSLA")}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
                         TSLA
-                      </a>
+                      </button>
                     </li>
                   </ul>
                 </div>
               )}
             </div>
+
+            <button
+              type="button"
+              className="px-4 py-2 me-2.5 ml-32 mb-5 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 font-medium rounded-2xl dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600"
+              // onClick={}
+            >
+              Select
+            </button>
           </div>
 
           <div className="rounded-md border-1 border-white-800 ml-5">

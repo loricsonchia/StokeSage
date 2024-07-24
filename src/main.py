@@ -16,15 +16,39 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
-# Define UserLogin model
 class UserLogin(BaseModel):
     email: str
     password: str
 
+class UserSignup(BaseModel):
+    email: str
+    password: str
+    name: str
+
+@app.post("/signup")
+async def signup(user: UserSignup):
+    try:
+        # Create user in Firebase Authentication
+        user_record = auth.create_user(
+            email=user.email,
+            password=user.password
+        )
+        
+        # Store additional user data in Firestore
+        user_data = {
+            "name": user.name,
+            "email": user.email
+        }
+        db.collection('users').document(user_record.uid).set(user_data)
+        
+        return {"message": "User created successfully", "uid": user_record.uid}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
 @app.post("/login")
 async def login(user: UserLogin):
     try:
-        # Use Firebase Authentication to get user details
+        # Authenticate user with Firebase
         user_record = auth.get_user_by_email(user.email)
         
         # Query Firestore for additional user details
@@ -35,15 +59,6 @@ async def login(user: UserLogin):
             user_data = user_doc.to_dict()
             return {"uid": user_record.uid, "email": user_record.email, **user_data}
         else:
-            raise HTTPException(status_code=404, detail="User not found in Firestore")
-    
+            raise HTTPException(status_code=404, detail="User not found")
     except Exception as e:
-        raise HTTPException(status_code=400, detail="Fail from login routes")
-    
-# app.post("/future")
-# async def future():
-#     try:
-#         #load model
-
-#     except Exception as e:
-#         raise HTTPException(status_code=400, detail="Fail from future routes")
+        raise HTTPException(status_code=400, detail=str(e))

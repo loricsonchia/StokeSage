@@ -1,45 +1,63 @@
 import React from "react";
+import { getAuth, signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful
+        console.log("User signed out");
+      })
+      .catch((error) => {
+        // An error happened
+        console.error("Error signing out: ", error);
+      });
+  };
+
   return (
     <nav className="flex-col mt-16">
       <div>
         <ul className="font-medium flex flex-col text-2xl pl-10 md:flex-row md:space-x-20 space-x-reverse">
           <li>
-            <a
-              href="./pages/Home.js"
+            <Link
+              to="/"
               className="block py-2 px-3 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500"
               aria-current="page"
             >
               Home
-            </a>
+            </Link>
           </li>
-
           <li>
-            <a
-              href="./pages/Manipulation.js"
+            <Link
+              to="/manipulation"
               className="block py-2 px-3 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500"
             >
               Future
-            </a>
+            </Link>
           </li>
-
           <li>
             <a
-              href=""
+              href="https://finance.yahoo.com/topic/stock-market-news/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block py-2 px-3 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500"
             >
               News
             </a>
           </li>
-
           <li>
-            <a
-              href="#"
+            {/* <Link className="block py-2 px-3 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500">
+              Logout
+            </Link> */}
+            <button
+              onClick={handleLogout}
               className="block py-2 px-3 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500"
             >
               Logout
-            </a>
+            </button>
+            ;
           </li>
         </ul>
       </div>

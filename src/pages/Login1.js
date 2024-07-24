@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../firebase"; // Make sure this path is correct
 import { signInWithEmailAndPassword } from "firebase/auth";
-import axios from "axios";
 import News from "../components/News";
 import Marquee from "../components/Marquee";
 import Navbar from "../components/Navbar";
@@ -14,17 +13,17 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:8000/login", {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
         email,
-        password,
-      });
-      alert("Login successful:", response.data);
-      console.log("Login successful:", response.data);
-    } catch (error) {
-      console.error(
-        "Error logging in: Failed from handleLogin ",
-        error.response ? error.response.data : error.message
+        password
       );
+      const user = userCredential.user;
+      console.log("Login successful:", user);
+      // Redirect or update state as needed
+    } catch (error) {
+      console.error("Error logging in:", error.message);
+      setError(error.message);
     }
   };
 

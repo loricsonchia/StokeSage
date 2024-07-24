@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import News from "../components/News";
 import Marquee from "../components/Marquee";
-import Card from "../components/Card";
 import image1 from "../news.png";
 import image2 from "../prices.webp";
 import image3 from "../chart.jpg";
@@ -28,32 +27,50 @@ const Home = () => {
         </div>
       </header>
 
-      <div className="flex pt-10">
-        <div className="-mr-10">
-          <div
-            className="rounded-xl border-1 border-white-800 ml-10 mr-20 mb-10 opacity-50"
-            style={{ backgroundImage: `url(${image1})` }}
-          >
-            <h2 className="text-white text-5xl justify-center place-content-center pl-10 pt-10 pb-44 pr-80">
+      <div className="flex pt-10 px-10 space-x-10">
+        {" "}
+        {/* Added px-10 here */}
+        <div className="flex flex-col space-y-10">
+          <div className="rounded-xl border-1 border-white-800 relative flex-1">
+            <div
+              className="absolute inset-0 rounded-xl opacity-50"
+              style={{
+                backgroundImage: `url(${image1})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            <h2 className="text-white text-5xl pl-10 pt-10 pb-44 pr-80 relative">
               Market News
             </h2>
           </div>
 
-          <div
-            className="rounded-xl border-1 border-white-800 ml-10 mr-20 opacity-50"
-            style={{ backgroundImage: `url(${image2})` }}
-          >
-            <h3 className="text-white text-5xl place-content-center pl-10 pt-10 pb-44 pr-80">
+          <div className="rounded-xl border-1 border-white-800 relative flex-1">
+            <div
+              className="absolute inset-0 rounded-xl opacity-50"
+              style={{
+                backgroundImage: `url(${image2})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            <h3 className="text-white text-5xl pl-10 pt-10 pb-44 pr-80 relative">
               Stock Prices
             </h3>
           </div>
         </div>
-
-        <div
-          className="rounded-xl border-1 border-white-800 pb-72 bg-cover bg-center opacity-50"
-          style={{ backgroundImage: `url(${image3})` }}
-        >
-          <h1 className="text-white text-8xl place-content-center p-10 mr-80">
+        <div className="rounded-xl border-1 border-white-800 relative flex-1">
+          {" "}
+          {/* Removed pr-10 here */}
+          <div
+            className="absolute inset-0 rounded-xl opacity-50"
+            style={{
+              backgroundImage: `url(${image3})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+          <h1 className="text-white text-8xl pl-10 pt-10 pb-44 pr-80 relative">
             AI Model
           </h1>
         </div>

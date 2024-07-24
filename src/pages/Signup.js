@@ -1,9 +1,37 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { auth } from "../firebase"; //
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import News from "../components/News";
 import Marquee from "../components/Marquee";
 import Navbar from "../components/Navbar";
 
 const Signup = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("Signup successful:", user);
+      // Redirect or update state as needed
+    } catch (error) {
+      console.error("Error signing up:", error.message);
+      setError(error.message);
+    }
+  };
+
   return (
     <section class="bg-background">
       <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
