@@ -1,17 +1,19 @@
 import React from "react";
 import News from "../components/News";
-import Marquee from "../components/Marquee";
 import image1 from "../news.png";
-import image2 from "../prices.webp";
+import image2 from "../login.jpg";
 import image3 from "../chart.jpg";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
+import StockContainer from "../components/StockContainer";
+import Login from "../pages/Login1";
 
 const Home = () => {
   return (
     <section className="bg-background">
       <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
         <div className="flex-col">
-          <h1 className="text-stockSage text-8xl pl-10 pt-16 pr-96 flex-col">
+          <h1 className="text-stockSage text-9xl pl-10 pt-16 pr-64 flex-col">
             StockSage
           </h1>
           <Navbar />
@@ -19,7 +21,7 @@ const Home = () => {
 
         <div className="max-h-fit auto-rows-fr gap-6 font-quicksand overflow-hidden">
           <div className="col-span-3 border-white border-b-1 border-l-1 rounded-none">
-            <Marquee />
+            <StockContainer />
           </div>
           <div className="col-span-3 border-white border-l-1 rounded-none">
             <News> News </News>
@@ -31,7 +33,12 @@ const Home = () => {
         {" "}
         {/* Added px-10 here */}
         <div className="flex flex-col space-y-10">
-          <div className="rounded-xl border-1 border-white-800 relative flex-1">
+          <a
+            href="https://finance.yahoo.com/topic/stock-market-news/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl border-1 border-white-800 relative flex-1"
+          >
             <div
               className="absolute inset-0 rounded-xl opacity-50"
               style={{
@@ -43,9 +50,12 @@ const Home = () => {
             <h2 className="text-white text-5xl pl-10 pt-10 pb-44 pr-80 relative">
               Market News
             </h2>
-          </div>
+          </a>
 
-          <div className="rounded-xl border-1 border-white-800 relative flex-1">
+          <Link
+            to="/login"
+            className="rounded-xl border-1 border-white-800 relative flex-1"
+          >
             <div
               className="absolute inset-0 rounded-xl opacity-50"
               style={{
@@ -55,11 +65,14 @@ const Home = () => {
               }}
             ></div>
             <h3 className="text-white text-5xl pl-10 pt-10 pb-44 pr-80 relative">
-              Stock Prices
+              Login
             </h3>
-          </div>
+          </Link>
         </div>
-        <div className="rounded-xl border-1 border-white-800 relative flex-1">
+        <Link
+          to="/manipulation"
+          className="rounded-xl border-1 border-white-800 relative flex-1"
+        >
           {" "}
           {/* Removed pr-10 here */}
           <div
@@ -73,7 +86,7 @@ const Home = () => {
           <h1 className="text-white text-8xl pl-10 pt-10 pb-44 pr-80 relative">
             AI Model
           </h1>
-        </div>
+        </Link>
       </div>
 
       <footer className="flex justify-between items-center">

@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <nav className="flex-col mt-16">
       <div>
-        <ul className="font-medium flex flex-col text-2xl pl-10 md:flex-row md:space-x-20 space-x-reverse">
+        <ul className="font-medium flex flex-col text-3xl pl-10 md:flex-row md:space-x-20 space-x-reverse">
           <li>
             <Link
               to="/"
