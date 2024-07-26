@@ -1,7 +1,7 @@
 import React from "react";
 import News from "../components/News";
 import image1 from "../news.png";
-import image2 from "../login.jpg";
+import image2 from "../prices.webp";
 import image3 from "../chart.jpg";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const Home = () => {
     <section className="bg-background">
       <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
         <div className="flex-col">
-          <h1 className="text-stockSage text-9xl pl-10 pt-16 pr-64 flex-col">
+          <h1 className="text-stockSage text-9xl pl-10 pt-16 pr-72 flex-col">
             StockSage
           </h1>
           <Navbar />
@@ -30,8 +30,6 @@ const Home = () => {
       </header>
 
       <div className="flex pt-10 px-10 space-x-10">
-        {" "}
-        {/* Added px-10 here */}
         <div className="flex flex-col space-y-10">
           <a
             href="https://finance.yahoo.com/topic/stock-market-news/"
@@ -52,9 +50,11 @@ const Home = () => {
             </h2>
           </a>
 
-          <Link
-            to="/login"
+          <a
+            href="https://www.tradingview.com/markets/usa/"
             className="rounded-xl border-1 border-white-800 relative flex-1"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <div
               className="absolute inset-0 rounded-xl opacity-50"
@@ -65,16 +65,14 @@ const Home = () => {
               }}
             ></div>
             <h3 className="text-white text-5xl pl-10 pt-10 pb-44 pr-80 relative">
-              Login
+              Market Prices
             </h3>
-          </Link>
+          </a>
         </div>
         <Link
           to="/manipulation"
           className="rounded-xl border-1 border-white-800 relative flex-1"
         >
-          {" "}
-          {/* Removed pr-10 here */}
           <div
             className="absolute inset-0 rounded-xl opacity-50"
             style={{

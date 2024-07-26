@@ -20,7 +20,7 @@ const Manipulation = () => {
     <section className="bg-background">
       <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
         <div className="flex-col">
-          <h1 className="text-stockSage text-9xl pl-10 pt-16 pr-96 flex-col">
+          <h1 className="text-stockSage text-9xl pl-10 pt-16 pr-72 flex-col">
             StockSage
           </h1>
           <Navbar />
@@ -45,7 +45,7 @@ const Manipulation = () => {
           <div className="rounded-md border-1 border-white-800 mt-10 mb-5 ml-5">
             <h1 className="text-white text-2xl mx-28 mt-3">Parameter</h1>
 
-            <div className="ml-14 mt-10 pb-20">
+            <div className="ml-16 mt-10 pb-20">
               <button
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"
@@ -127,9 +127,13 @@ const Manipulation = () => {
           </div>
 
           <div className="rounded-md border-1 border-white-800 ml-5">
-            <h1 className="text-white text-2xl ml-20 mt-3 mb-80">
+            <h1 className="text-white text-2xl ml-20 mt-3 mb-10">
               Manipulation Rate
             </h1>
+            <div className="flex mb-10">
+              <h2 className="flex-row text-9xl text-stockSage ml-20">88</h2>
+              <h3 className="flex-row text-4xl text-stockSage ml-3 mt-20">%</h3>
+            </div>
           </div>
         </div>
       </div>

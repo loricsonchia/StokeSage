@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
+from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 
@@ -16,6 +17,14 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 class UserLogin(BaseModel):
     email: str
     password: str
@@ -23,27 +32,21 @@ class UserLogin(BaseModel):
 class UserSignup(BaseModel):
     email: str
     password: str
-    name: str
 
 @app.post("/signup")
 async def signup(user: UserSignup):
     try:
-        # Create user in Firebase Authentication
+        print(f"Attempting to create user with email: {user.email}")
         user_record = auth.create_user(
             email=user.email,
             password=user.password
         )
-        
-        # Store additional user data in Firestore
-        user_data = {
-            "name": user.name,
-            "email": user.email
-        }
-        db.collection('users').document(user_record.uid).set(user_data)
-        
+        print(f"User created successfully with UID: {user_record.uid}")
         return {"message": "User created successfully", "uid": user_record.uid}
     except Exception as e:
+        print(f"Error creating user: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @app.post("/login")
 async def login(user: UserLogin):

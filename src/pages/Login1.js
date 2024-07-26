@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { auth } from "../firebase"; // Make sure this path is correct
+import { useNavigate } from "react-router-dom";
+import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import News from "../components/News";
-import Navbar from "../components/Navbar";
 import StockContainer from "../components/StockContainer";
-import Signup from "./Signup";
+import Modal from "../components/Modal";
+import Navbar from "../components/Navbar";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,21 +24,27 @@ const Login = () => {
       );
       const user = userCredential.user;
       console.log("Login successful:", user);
-      // Redirect or update state as needed
+      setShowModal(true); // Show the modal on successful login
     } catch (error) {
       console.error("Error logging in:", error.message);
       setError(error.message);
     }
   };
 
+  const handleCloseModal = () => {
+    setTimeout(() => {
+      setShowModal(false);
+      navigate("/manipulation"); // Navigate to /manipulation after 2 seconds
+    }, 1500);
+  };
+
   return (
     <section className="bg-background">
       <header className="flex justify-start rounded-none relative border-b-1 border-white-800">
         <div className="flex-col">
-          <h1 className="text-stockSage text-9xl pl-10 pt-16 pr-96 flex-col">
+          <h1 className="text-stockSage text-9xl pl-10 pt-16 pr-72 flex-col">
             StockSage
           </h1>
-          <Navbar />
         </div>
 
         <div className="max-h-fit auto-rows-fr gap-6 font-quicksand overflow-hidden">
@@ -49,7 +58,7 @@ const Login = () => {
       </header>
 
       <div className="flex flex-col items-center justify-center pt-16 pb-10 mx-auto md:max-h-screen lg:py-0 mt-10">
-        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0  dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-2 space-y-1 md:space-y-2 sm:p-8">
             <h1 className="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign In
@@ -91,29 +100,9 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="remember"
-                      className="text-gray-500 dark:text-gray-300"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-              </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 transition duration-700 hover:scale-125"
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 transition duration-700 hover:scale-125"
               >
                 Sign in
               </button>
@@ -140,6 +129,10 @@ const Login = () => {
           <h3 className=" text-white">2024</h3>
         </div>
       </footer>
+
+      {showModal && (
+        <Modal message="Login successful" onClose={handleCloseModal} />
+      )}
     </section>
   );
 };
