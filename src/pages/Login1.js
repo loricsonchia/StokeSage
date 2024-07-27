@@ -34,7 +34,7 @@ const Login = () => {
   const handleCloseModal = () => {
     setTimeout(() => {
       setShowModal(false);
-      navigate("/manipulation"); // Navigate to /manipulation after 2 seconds
+      navigate("/home"); // Navigate to /manipulation after 2 seconds
     }, 1500);
   };
 

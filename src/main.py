@@ -5,6 +5,8 @@ from firebase_admin import credentials, firestore, auth
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
+# import yfinance as yf
+
 
 load_dotenv()
 
@@ -65,3 +67,8 @@ async def login(user: UserLogin):
             raise HTTPException(status_code=404, detail="User not found")
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+
+# @app.post("/predict")
+# async def predict():
+#     try:

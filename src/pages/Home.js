@@ -2,7 +2,7 @@ import React from "react";
 import News from "../components/News";
 import image1 from "../news.png";
 import image2 from "../prices.webp";
-import image3 from "../chart.jpg";
+import image3 from "../financialAI.webp";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import StockContainer from "../components/StockContainer";
@@ -38,7 +38,7 @@ const Home = () => {
             className="rounded-xl border-1 border-white-800 relative flex-1"
           >
             <div
-              className="absolute inset-0 rounded-xl opacity-50"
+              className="absolute inset-0 rounded-xl opacity-40"
               style={{
                 backgroundImage: `url(${image1})`,
                 backgroundSize: "cover",
@@ -57,7 +57,7 @@ const Home = () => {
             rel="noopener noreferrer"
           >
             <div
-              className="absolute inset-0 rounded-xl opacity-50"
+              className="absolute inset-0 rounded-xl opacity-40"
               style={{
                 backgroundImage: `url(${image2})`,
                 backgroundSize: "cover",
@@ -74,7 +74,7 @@ const Home = () => {
           className="rounded-xl border-1 border-white-800 relative flex-1"
         >
           <div
-            className="absolute inset-0 rounded-xl opacity-50"
+            className="absolute inset-0 rounded-xl opacity-40"
             style={{
               backgroundImage: `url(${image3})`,
               backgroundSize: "cover",
