@@ -6,7 +6,6 @@ import image3 from "../financialAI.webp";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import StockContainer from "../components/StockContainer";
-import Login from "../pages/Login1";
 
 const Home = () => {
   return (
@@ -82,7 +81,7 @@ const Home = () => {
             }}
           ></div>
           <h1 className="text-white text-8xl pl-10 pt-10 pb-44 pr-80 relative">
-            AI Model
+            AI Analysis
           </h1>
         </Link>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import News from "../components/News";
 import Navbar from "../components/Navbar";
 import StockContainer from "../components/StockContainer";
@@ -6,6 +7,10 @@ import StockContainer from "../components/StockContainer";
 const Manipulation = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState("Ticker");
+  const [predictions, setPredictions] = useState([]);
+  const [plot, setPlot] = useState(null);
+  const [manipulationRate, setManipulationRate] = useState(null);
+  const [anomaliesDetected, setAnomaliesDetected] = useState(null);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -13,7 +18,30 @@ const Manipulation = () => {
 
   const handleSelectItem = (item) => {
     setSelectedItem(item);
+    console.log(item);
     setDropdownOpen(false);
+  };
+
+  const fetchStockPrediction = async () => {
+    try {
+      const response = await axios.post("http://localhost:8000/predict_stock", {
+        ticker: selectedItem,
+      });
+      setPlot(`data:image/png;base64,${response.data.plot}`);
+      setManipulationRate(response.data.manipulation_rate);
+      setAnomaliesDetected(response.data.anomalies_detected);
+
+      // You can also store the predictions if needed
+      // setHistoricalPredictions(response.data.historical_predictions);
+      // setFuturePredictions(response.data.future_predictions);
+
+      console.log("Response data:", response.data);
+    } catch (error) {
+      console.error(
+        "Error fetching stock prediction:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   return (
@@ -38,10 +66,30 @@ const Manipulation = () => {
 
       <div className="flex">
         <div className="flex-col rounded-md border-1 border-white-800 ml-10 mt-10">
-          <h1 className="text-white text-5xl mt-10 ml-10 mr-224">Chart</h1>
+          {/* {plot && (
+            <div className="mt-16">
+              <img src={plot} alt="Analysed Chart" />
+            </div>
+          )} */}
+          {/* {plot && (
+            <img
+              src={plot}
+              alt="Stock Prediction Chart"
+              style={{ width: "100%", height: "auto" }}
+              className="mt-16"
+            />
+          )} */}
+          {plot && (
+            <img
+              src={plot}
+              alt="Stock Prediction Chart"
+              style={{ width: "100%", height: "auto" }}
+              className="mt-16"
+            />
+          )}
         </div>
 
-        <div className="flex-col relative">
+        <div className="flex-col relative mr-10">
           <div className="rounded-md border-1 border-white-800 mt-10 mb-5 ml-5">
             <h1 className="text-white text-2xl mx-28 mt-3">Parameter</h1>
 
@@ -74,7 +122,7 @@ const Manipulation = () => {
               {dropdownOpen && (
                 <div
                   id="dropdown"
-                  className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-36 ml-1 dark:bg-gray-700 absolute mt-2 left-1/2 transform -translate-x-1/2"
+                  className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-36 ml-3 dark:bg-gray-700 absolute mt-2 left-1/2 transform -translate-x-1/2"
                 >
                   <ul
                     className="py-2 text-sm text-gray-700 dark:text-gray-200"
@@ -106,10 +154,26 @@ const Manipulation = () => {
                     </li>
                     <li>
                       <button
-                        onClick={() => handleSelectItem("TSLA")}
+                        onClick={() => handleSelectItem("AMZN")}
                         className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                       >
-                        TSLA
+                        AMZN
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => handleSelectItem("MSFT")}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        MSFT
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => handleSelectItem("GOOG")}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                      >
+                        GOOG
                       </button>
                     </li>
                   </ul>
@@ -120,30 +184,31 @@ const Manipulation = () => {
             <button
               type="button"
               className="px-4 py-2 me-2.5 ml-32 mb-5 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 font-medium rounded-2xl dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600"
-              // onClick={}
+              onClick={fetchStockPrediction}
             >
               Select
             </button>
           </div>
 
           <div className="rounded-md border-1 border-white-800 ml-5">
-            <h1 className="text-white text-2xl ml-20 mt-3 mb-10">
-              Manipulation Rate
+            <h1 className="text-white text-2xl ml-16 mt-3 mb-10">
+              Anomalies Detected
             </h1>
             <div className="flex mb-10">
-              <h2 className="flex-row text-9xl text-stockSage ml-20">88</h2>
-              <h3 className="flex-row text-4xl text-stockSage ml-3 mt-20">%</h3>
+              <h2 className="flex-row text-9xl text-stockSage ml-24">
+                {anomaliesDetected ?? "0"}
+              </h2>
             </div>
           </div>
         </div>
       </div>
 
-      <footer className="flex justify-between items-center ">
+      <footer className="flex justify-between items-center">
         <div className="pt-10 mb-8 pl-10">
           <h3 className="text-white">where finance meets AI</h3>
         </div>
         <div className="pt-10 mb-8 pr-10">
-          <h3 className=" text-white">2024</h3>
+          <h3 className="text-white">2024</h3>
         </div>
       </footer>
     </section>
